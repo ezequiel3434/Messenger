@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "kisspng-facebook-messenger-social-media-computer-icons-fac-messenger-logo-5b15277101f796.5969129215281130090081.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "kisspng-facebook-messenger-social-media-computer-icons-fac-messenger-logo-5b15277101f796.5969129215281130090081@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "kisspng-facebook-messenger-social-media-computer-icons-fac-messenger-logo-5b15277101f796.5969129215281130090081@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
