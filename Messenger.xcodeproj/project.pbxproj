@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		370EF20124F19BCE001D4026 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370EF20024F19BCE001D4026 /* VideoPlayerViewController.swift */; };
 		370EF20324F19C00001D4026 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370EF20224F19C00001D4026 /* NewConversationViewController.swift */; };
 		370EF20524F19C26001D4026 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370EF20424F19C26001D4026 /* ProfileViewController.swift */; };
+		3796F8AA24F2B61B005DB588 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3796F8A924F2B61A005DB588 /* GoogleService-Info.plist */; };
 		37ADB14024F197F800D2FE21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ADB13F24F197F800D2FE21 /* AppDelegate.swift */; };
 		37ADB14224F197F800D2FE21 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ADB14124F197F800D2FE21 /* SceneDelegate.swift */; };
 		37ADB14424F197F800D2FE21 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ADB14324F197F800D2FE21 /* ConversationsController.swift */; };
@@ -30,6 +31,7 @@
 		370EF20024F19BCE001D4026 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		370EF20224F19C00001D4026 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		370EF20424F19C26001D4026 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		3796F8A924F2B61A005DB588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37ADB13C24F197F800D2FE21 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37ADB13F24F197F800D2FE21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37ADB14124F197F800D2FE21 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,11 +78,6 @@
 		37ADB13324F197F700D2FE21 = {
 			isa = PBXGroup;
 			children = (
-				37ADB15724F199AB00D2FE21 /* Resources */,
-				37ADB15624F1999B00D2FE21 /* ViewModels */,
-				37ADB15524F1998700D2FE21 /* Models */,
-				37ADB15424F1997F00D2FE21 /* Views */,
-				37ADB15324F1996000D2FE21 /* Controllers */,
 				37ADB13E24F197F800D2FE21 /* Messenger */,
 				37ADB13D24F197F800D2FE21 /* Products */,
 				6956D7F2F472EB59BA08B4AF /* Pods */,
@@ -99,6 +96,12 @@
 		37ADB13E24F197F800D2FE21 /* Messenger */ = {
 			isa = PBXGroup;
 			children = (
+				37ADB15724F199AB00D2FE21 /* Resources */,
+				37ADB15524F1998700D2FE21 /* Models */,
+				37ADB15424F1997F00D2FE21 /* Views */,
+				37ADB15324F1996000D2FE21 /* Controllers */,
+				37ADB15624F1999B00D2FE21 /* ViewModels */,
+				3796F8A924F2B61A005DB588 /* GoogleService-Info.plist */,
 				37ADB14D24F197F900D2FE21 /* Info.plist */,
 			);
 			path = Messenger;
@@ -165,7 +168,6 @@
 				E658ABFA156AE89DA777F6DD /* Pods-Messenger.debug.xcconfig */,
 				FCE6AD07891E5B6317DC8B41 /* Pods-Messenger.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -230,6 +232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37ADB14C24F197F900D2FE21 /* LaunchScreen.storyboard in Resources */,
+				3796F8AA24F2B61B005DB588 /* GoogleService-Info.plist in Resources */,
 				37ADB14924F197F900D2FE21 /* Assets.xcassets in Resources */,
 				37ADB14724F197F800D2FE21 /* Main.storyboard in Resources */,
 			);
