@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
     
@@ -80,8 +81,22 @@ class LoginViewController: UIViewController {
         
     }()
     
+    private let googleLoginButton = GIDSignInButton()
+    
+    private var loginObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLoginNotification, object: nil, queue: .main) { [weak self] (_) in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+        }
+        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        
         title = "Log In"
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
@@ -98,12 +113,18 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
         scrollView.addSubview(facebookLoginButton)
+        scrollView.addSubview(googleLoginButton)
         
         
         
         
         
-        
+    }
+    
+    deinit {
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -130,7 +151,12 @@ class LoginViewController: UIViewController {
                                            y: loginButton.bottom + 10,
                                            width: scrollView.width - 60,
                                            height: 52)
-        facebookLoginButton.frame.origin.y = loginButton.bottom + 20
+        googleLoginButton.frame = CGRect(x: 30,
+                                         y: facebookLoginButton.bottom + 10,
+                                         width: scrollView.width - 60,
+                                         height: 52)
+        
+        
     }
     
     
@@ -216,9 +242,9 @@ extension LoginViewController: LoginButtonDelegate {
             }
             
             let nameComponents = userName.components(separatedBy: " ")
-//            guard nameComponents.count == 2 else {
-//                return
-//            }
+            //            guard nameComponents.count == 2 else {
+            //                return
+            //            }
             
             let firstName = nameComponents[0]
             let lastName = nameComponents[1]
@@ -237,8 +263,8 @@ extension LoginViewController: LoginButtonDelegate {
                 }
                 guard authResult != nil , error == nil else {
                     if let error = error {
-                    print("Facebook credential login failed, MFA may be needed- \(error)")
-                    
+                        print("Facebook credential login failed, MFA may be needed- \(error)")
+                        
                     }
                     return
                 }
