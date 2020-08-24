@@ -8,8 +8,11 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class ConversationsController: UIViewController {
+    
+    private let spinner = JGProgressHUD(style: .dark)
 
     private let tableView: UITableView = {
         
@@ -34,8 +37,13 @@ class ConversationsController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(noConversationsLabel)
         setupTableView()
+        fetchConversations()
         
-        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -58,6 +66,10 @@ class ConversationsController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
+    private func fetchConversations() {
+        tableView.isHidden = false
+    }
 
 
 }
@@ -68,9 +80,19 @@ extension ConversationsController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = "Hello world"
+        cell.accessoryType = .disclosureIndicator
+        return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let vc = ChatViewController()
+        vc.title = "Anonimo"
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
