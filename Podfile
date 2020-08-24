@@ -18,4 +18,9 @@ target 'Messenger' do
 
   # Pods for Messenger
 
+ pod 'MessageKit'
+ pod 'JGProgressHUD'
+ pod 'RealmSwift'
+ pod 'SDWebImage'
+
 end
