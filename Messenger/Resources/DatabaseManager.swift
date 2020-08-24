@@ -14,7 +14,11 @@ final class DatabaseManager {
     
     private let database = Database.database().reference()
     
-    
+    static func safeEmail(emailAdress: String) -> String{
+        var safeEmail = emailAdress.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        return safeEmail
+    }
     
     
 }
@@ -49,7 +53,44 @@ extension DatabaseManager {
                     completion(false)
                     return
                 }
-                completion(true)
+                
+                self.database.child("users").observeSingleEvent(of: .value) { (snapshot) in
+                    if var usersCollection = snapshot.value as? [[String: String]]{
+                        // append to user dictionary
+                        let newElement = [
+                            "name": user.firstName + " " + user.lastName,
+                            "email": user.safeEmail
+                        ]
+                        
+                        usersCollection.append(newElement)
+                        
+                        self.database.child("users").setValue(usersCollection, withCompletionBlock: { error, _ in
+                            guard error == nil else {
+                                completion(false)
+                                return
+                            }
+                            completion(true)
+                        })
+                        
+                        
+                    } else {
+                        // create that array
+                        let newCollection: [[String: String]] = [
+                            ["name": user.firstName + " " + user.lastName,
+                             "email": user.safeEmail
+                            ]
+                        ]
+                        
+                        self.database.child("users").setValue(newCollection, withCompletionBlock: { error, _ in
+                            guard error == nil else {
+                                completion(false)
+                                return
+                            }
+                            completion(true)
+                        })
+                    }
+                }
+                
                 
         })
     }

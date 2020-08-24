@@ -16,7 +16,7 @@ import GoogleSignIn
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
-
+    
     
     func application( _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? ) -> Bool {
         
@@ -54,14 +54,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         guard let email = user.profile.email,
             let firstName = user.profile.givenName,
             let lastName = user.profile.familyName
-        else {
-            return
+            else {
+                return
         }
-        
+        UserDefaults.standard.set(email, forKey: "email")
+
         
         DatabaseManager.shared.userExists(with: email) { (exists) in
             if !exists {
                 let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, emailAdress: email)
+                
+                
                 // insert to database
                 DatabaseManager.shared.insertUser(with: chatUser, completion: { success in
                     if success {
@@ -80,21 +83,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                 
                                 
                                 let fileName = chatUser.profilePictureFileName
-                                                           StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName) { (result) in
-                                                               switch result {
-                                                               case .success(let downloadUrl):
-                                                                   UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
-                                                                   print(downloadUrl)
-                                                               case .failure(let error):
-                                                                   print("Storage mangager error: \(error)")
-                                                               }
-                                                           }
+                                StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName) { (result) in
+                                    switch result {
+                                    case .success(let downloadUrl):
+                                        UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                                        print(downloadUrl)
+                                    case .failure(let error):
+                                        print("Storage mangager error: \(error)")
+                                    }
+                                }
                             }.resume()
-                            }
-                            
-                           
+                        }
                         
-                       
+                        
+                        
+                        
                     }
                 })
             }
