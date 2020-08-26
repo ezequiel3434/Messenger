@@ -13,6 +13,7 @@
 		370EF20124F19BCE001D4026 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370EF20024F19BCE001D4026 /* VideoPlayerViewController.swift */; };
 		370EF20324F19C00001D4026 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370EF20224F19C00001D4026 /* NewConversationViewController.swift */; };
 		370EF20524F19C26001D4026 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370EF20424F19C26001D4026 /* ProfileViewController.swift */; };
+		3720B9B224F6F885002D4A45 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3720B9B124F6F885002D4A45 /* ConversationTableViewCell.swift */; };
 		3796F8AA24F2B61B005DB588 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3796F8A924F2B61A005DB588 /* GoogleService-Info.plist */; };
 		37ACD64124F312EB00C73FDD /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ACD64024F312EB00C73FDD /* DatabaseManager.swift */; };
 		37ACD64324F38AB000C73FDD /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ACD64224F38AB000C73FDD /* ChatViewController.swift */; };
@@ -34,6 +35,7 @@
 		370EF20024F19BCE001D4026 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		370EF20224F19C00001D4026 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		370EF20424F19C26001D4026 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		3720B9B124F6F885002D4A45 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		3796F8A924F2B61A005DB588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37ACD64024F312EB00C73FDD /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		37ACD64224F38AB000C73FDD /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			children = (
 				37ADB15824F199EC00D2FE21 /* StoryBoards */,
 				37ADB14824F197F900D2FE21 /* Assets.xcassets */,
+				3720B9B124F6F885002D4A45 /* ConversationTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				37ADB14424F197F800D2FE21 /* ConversationsController.swift in Sources */,
 				370EF20524F19C26001D4026 /* ProfileViewController.swift in Sources */,
 				37ADB14024F197F800D2FE21 /* AppDelegate.swift in Sources */,
+				3720B9B224F6F885002D4A45 /* ConversationTableViewCell.swift in Sources */,
 				37ACD64324F38AB000C73FDD /* ChatViewController.swift in Sources */,
 				37ADB14224F197F800D2FE21 /* SceneDelegate.swift in Sources */,
 				37ACD64524F3C91C00C73FDD /* StorageManager.swift in Sources */,
