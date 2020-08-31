@@ -46,6 +46,8 @@ class ConversationsController: UIViewController {
         return label
     }()
     
+    private var loginObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapComposeButton))
@@ -54,6 +56,13 @@ class ConversationsController: UIViewController {
         setupTableView()
         fetchConversations()
         startListeningForConversation()
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLoginNotification, object: nil, queue: .main) { [weak self] (_) in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.startListeningForConversation()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -69,6 +78,11 @@ class ConversationsController: UIViewController {
     
     private func startListeningForConversation() {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else { return }
+        
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+        
         print("startin conversation fetch")
         let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
         DatabaseManager.shared.getAllCOnversations(for: safeEmail) { [weak self] (result) in
