@@ -334,6 +334,7 @@ extension DatabaseManager {
             }
             
             let messages: [Message] = value.compactMap { (dictionary) in
+                print(dictionary["date"])
                 guard let name = dictionary["name"] as? String,
                     let isRead = dictionary["is_read"] as? Bool,
                     let messageID = dictionary["id"] as? String,
@@ -342,6 +343,7 @@ extension DatabaseManager {
                     let type = dictionary["type"] as? String,
                     let dateString = dictionary["date"] as? String,
                     let date = ChatViewController.dataFormatter.date(from: dateString) else {
+                        print("holanda")
                         return nil
                 }
                 var kind: MessageKind?

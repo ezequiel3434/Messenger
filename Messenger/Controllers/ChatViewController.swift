@@ -73,7 +73,7 @@ class ChatViewController: MessagesViewController {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .long
-        formatter.locale = .current
+        formatter.locale = Locale.init(identifier: "en_US")
         
         return formatter
     }()
@@ -194,9 +194,10 @@ class ChatViewController: MessagesViewController {
             let picker = UIImagePickerController()
             picker.sourceType = .photoLibrary
             picker.delegate = self
+            picker.allowsEditing = true
             picker.mediaTypes = ["public.movie"]
             picker.videoQuality = .typeMedium
-            picker.allowsEditing = true
+            
             self?.present(picker, animated: true)
         }))
         
@@ -296,7 +297,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
             }
             
         } else if let videoUrl = info[.mediaURL] as? URL  {
-            let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".mov"
+            let fileName = "video_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".mov"
             
             // Upload Video
             StorageManager.shared.uploadMessageVideo(with: videoUrl, fileName: fileName) { [weak self] (result) in
