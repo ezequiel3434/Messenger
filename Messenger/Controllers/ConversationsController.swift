@@ -109,8 +109,22 @@ class ConversationsController: UIViewController {
     @objc private func didTapComposeButton(){
         let vc = NewConversationViewController()
         vc.completion = { [weak self] result in
-            print("\(result)")
-            self?.creatNewConversation(result: result)
+            guard let strongSelf = self else {
+                return
+            }
+            let currentConversations = strongSelf.conversations
+            if let targerConversation = currentConversations.first(where: {
+                $0.otherUserEmail == DatabaseManager.safeEmail(emailAdress: result.email)
+            }) {
+                let vc = ChatViewController(with: targerConversation.otherUserEmail, id: targerConversation.id)
+                       vc.isNewConversation = false
+                vc.title = targerConversation.name
+                       vc.navigationItem.largeTitleDisplayMode = .never
+                strongSelf.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                    strongSelf.creatNewConversation(result: result)
+            }
+            
         }
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true)
@@ -164,10 +178,14 @@ extension ConversationsController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = conversations[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
+       openConversation(model)
+    }
+    
+    func openConversation(_ model: Conversation){
         let vc = ChatViewController(with: model.otherUserEmail, id: model.id)
-        vc.title = model.name
-        vc.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(vc, animated: true)
+               vc.title = model.name
+               vc.navigationItem.largeTitleDisplayMode = .never
+               navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

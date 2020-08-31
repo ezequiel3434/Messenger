@@ -48,12 +48,12 @@ extension DatabaseManager {
         
         
         database.child(safeEmail).observeSingleEvent(of: .value, with: { snapshot in
-            guard snapshot.value as? String != nil else {
-                completion(true)
+            guard snapshot.value as? [String:Any] != nil else {
+                completion(false)
                 return
             }
             
-            completion(false)
+            completion(true)
         } )
     }
     
@@ -198,7 +198,7 @@ extension DatabaseManager {
                 if var conversations = snapshot.value as? [[String: Any]] {
                     // append
                     conversations.append(recipient_newConversationData)
-                    self?.database.child("\(otherUserEmail)/conversations").setValue(conversationId)
+                    self?.database.child("\(otherUserEmail)/conversations").setValue(conversations)
                 } else {
                     // create
                     self?.database.child("\(otherUserEmail)/conversations").setValue([recipient_newConversationData])
@@ -588,6 +588,16 @@ extension DatabaseManager {
             }
         }
     }
+    
+    public func conversationExists(with targetRecipientEmail: String, completion: @escaping (Result<String, Error>)->()){
+        let safeRecipientEmail = DatabaseManager.safeEmail(emailAdress: targetRecipientEmail)
+        guard let senderEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            return
+        }
+        let safeSenderEmail = DatabaseManager.safeEmail(emailAdress: senderEmail)
+        
+    }
+    
 }
 
 

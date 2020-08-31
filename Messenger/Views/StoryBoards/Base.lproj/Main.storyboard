@@ -45,7 +45,7 @@
         <scene sceneID="CW3-Fx-ipm">
             <objects>
                 <navigationController id="cpY-Zt-Npa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="WgG-7B-Jkp"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person.circle" catalog="system" id="WgG-7B-Jkp"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="fyG-6f-MJa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -92,9 +92,8 @@
         <!--Chats-->
         <scene sceneID="bTm-3e-qAC">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="f55-Ww-fwB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fCv-BD-ibS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Chats" id="U0J-C4-lZo"/>
+                    <tabBarItem key="tabBarItem" title="Chats" image="message" catalog="system" id="U0J-C4-lZo"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="rhK-Sl-vXR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
@@ -105,8 +104,13 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Xyb-Q8-70e"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f55-Ww-fwB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1388" y="421"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="message" catalog="system" width="128" height="113"/>
+        <image name="person.circle" catalog="system" width="128" height="121"/>
+    </resources>
 </document>
