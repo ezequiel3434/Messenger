@@ -26,7 +26,7 @@ struct LatestMessage {
 class ConversationsController: UIViewController {
     
     private let spinner = JGProgressHUD(style: .dark)
-
+    
     private var conversations = [Conversation]()
     private let tableView: UITableView = {
         
@@ -73,7 +73,7 @@ class ConversationsController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
         
-       validateAuth()
+        validateAuth()
     }
     
     private func startListeningForConversation() {
@@ -129,11 +129,11 @@ class ConversationsController: UIViewController {
     private func validateAuth(){
         
         if FirebaseAuth.Auth.auth().currentUser == nil {
-                   let vc = LoginViewController()
-                   let nav = UINavigationController(rootViewController: vc)
-                   nav.modalPresentationStyle = .fullScreen
-                   present(nav, animated: false)
-               }
+            let vc = LoginViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: false)
+        }
     }
     
     private func setupTableView(){
@@ -144,8 +144,8 @@ class ConversationsController: UIViewController {
     private func fetchConversations() {
         tableView.isHidden = false
     }
-
-
+    
+    
 }
 
 extension ConversationsController: UITableViewDelegate, UITableViewDataSource {
@@ -157,7 +157,7 @@ extension ConversationsController: UITableViewDelegate, UITableViewDataSource {
         let model = conversations[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
         cell.configura(with: model)
-       
+        
         return cell
     }
     
@@ -172,6 +172,26 @@ extension ConversationsController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // begin delete
+            let conversationId = conversations[indexPath.row].id
+            tableView.beginUpdates()
+            DatabaseManager.shared.deleteConversation(conversationId: conversationId) { [weak self] (success) in
+                if success {
+                    self?.conversations.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .left)
+                }
+            }
+            
+            
+            tableView.endUpdates()
+        }
     }
 }
 
