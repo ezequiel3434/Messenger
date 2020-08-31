@@ -356,7 +356,21 @@ extension DatabaseManager {
                                       placeholderImage: placeholder,
                                       size: CGSize(width: 300, height: 300))
                     kind = .photo(media)
-                } else {
+                }
+                else if type == "video" {
+                    // video
+                    guard let videoUrl = URL(string: content),
+                        let placeholder = UIImage(systemName: "video.circle") else { return nil }
+                    
+                    let media = Media(url: videoUrl,
+                                      image: nil,
+                                      placeholderImage: placeholder,
+                                      size: CGSize(width: 300, height: 300))
+                    kind = .video(media)
+                }
+                
+                
+                else {
                     kind = .text(content)
                 }
                 
