@@ -617,7 +617,7 @@ extension DatabaseManager {
         // delete conversation in collection with target id
         // resete those conversations for the user in database
         let ref = database.child("\(safeEmail)/conversations")
-        ref.observe(.value) { (snapshot) in
+        ref.observeSingleEvent(of:.value) {  (snapshot) in
             if var conversations = snapshot.value as? [[String:Any]] {
                 var positionToRemove = 0
                 for conversation in conversations {

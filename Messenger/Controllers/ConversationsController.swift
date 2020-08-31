@@ -216,6 +216,8 @@ extension ConversationsController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+      
+
         return .delete
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -223,16 +225,20 @@ extension ConversationsController: UITableViewDelegate, UITableViewDataSource {
             // begin delete
             let conversationId = conversations[indexPath.row].id
             tableView.beginUpdates()
+            
             DatabaseManager.shared.deleteConversation(conversationId: conversationId) { [weak self] (success) in
                 if success {
                     self?.conversations.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .left)
+                   
                 }
+              
             }
-            
-            
-            tableView.endUpdates()
+           print("termina todo")
+           tableView.endUpdates()
+           
         }
+        
     }
 }
 
