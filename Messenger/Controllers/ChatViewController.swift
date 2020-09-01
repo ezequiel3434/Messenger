@@ -92,7 +92,7 @@ class ChatViewController: MessagesViewController {
     }()
     
     public let otherUserEmail: String
-    private let conversationId: String?
+    private var conversationId: String?
     public var isNewConversation = false
     private var messages = [Message]()
     private var selfSender: Sender? {
@@ -423,6 +423,11 @@ extension ChatViewController: InputBarAccessoryViewDelegate{
                 if success {
                     print("message sent")
                     self?.isNewConversation = false
+                    let newConversationId = "conversation_\(message.messageId)"
+                    self?.conversationId = newConversationId
+                    self?.listenForMessages(id: newConversationId, shouldScrollToBottom: true)
+                    self?.messageInputBar.inputTextView.text = nil
+
                 } else {
                     print("failed to send")
                 }
@@ -431,8 +436,9 @@ extension ChatViewController: InputBarAccessoryViewDelegate{
             
             guard let conversationId = conversationId, let name = self.title else { return  }
             // append to existing conversation data
-            DatabaseManager.shared.sendMessage(to: conversationId, otherUserEmail: otherUserEmail , name: name ,newMessage: message) { (success) in
+            DatabaseManager.shared.sendMessage(to: conversationId, otherUserEmail: otherUserEmail , name: name ,newMessage: message) { [weak self] (success) in
                 if success {
+                    self?.messageInputBar.inputTextView.text = nil
                     print("message sent")
                 } else {
                     print("failed to send")
