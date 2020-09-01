@@ -7,4 +7,26 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:images"
+      name = "images">
+      <FileRef
+         location = "group:/Users/ezequiel/Documents/Cursos/iOS/iOSAcademy/Messenger/images/1.png">
+      </FileRef>
+      <FileRef
+         location = "group:/Users/ezequiel/Documents/Cursos/iOS/iOSAcademy/Messenger/images/3.png">
+      </FileRef>
+      <FileRef
+         location = "group:/Users/ezequiel/Documents/Cursos/iOS/iOSAcademy/Messenger/images/4.png">
+      </FileRef>
+      <FileRef
+         location = "group:/Users/ezequiel/Documents/Cursos/iOS/iOSAcademy/Messenger/images/6.png">
+      </FileRef>
+      <FileRef
+         location = "group:/Users/ezequiel/Documents/Cursos/iOS/iOSAcademy/Messenger/images/2.png">
+      </FileRef>
+      <FileRef
+         location = "group:/Users/ezequiel/Documents/Cursos/iOS/iOSAcademy/Messenger/images/5.png">
+      </FileRef>
+   </Group>
 </Workspace>
