@@ -79,6 +79,9 @@ struct Location: LocationItem {
 
 class ChatViewController: MessagesViewController {
     
+    private var senderPhotoURL: URL?
+    private var otherUserPhotURL: URL?
+    
     public static let dataFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -173,11 +176,11 @@ class ChatViewController: MessagesViewController {
         vc.completion = { [weak self] selectedCoordinates in
             guard let strongSelf = self else { return }
             guard let messageId = strongSelf.createMessageId(),
-                       let conversationId = strongSelf.conversationId,
-                       let name = strongSelf.title,
-                       let selfSender = strongSelf.selfSender else {
-                           return
-                   }
+                let conversationId = strongSelf.conversationId,
+                let name = strongSelf.title,
+                let selfSender = strongSelf.selfSender else {
+                    return
+            }
             
             let longitude: Double = selectedCoordinates.longitude
             let latitude: Double = selectedCoordinates.latitude
@@ -199,7 +202,7 @@ class ChatViewController: MessagesViewController {
             }
             
         }
-            navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
         
     }
     
@@ -488,7 +491,72 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
         
     }
     
-   
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        let sender = message.sender
+        if sender.senderId == selfSender?.senderId {
+            // our message that we've sent
+            return .link
+        }
+        return .secondarySystemBackground
+    }
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        
+        let sender = message.sender
+        if sender.senderId == selfSender?.senderId {
+            //show our image
+            if let currentUserImageURL = self.senderPhotoURL {
+                avatarView.sd_setImage(with: currentUserImageURL, completed: nil)
+            } else  {
+                
+                guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+                    return
+                }
+                
+                let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
+                let path = "images/\(safeEmail)_profile_picture.png"
+                
+                
+                // fetch url
+                StorageManager.shared.downloadURL(for: path) {[weak self](result) in
+                    switch result {
+                    case .success(let url):
+                        self?.senderPhotoURL = url
+                        DispatchQueue.main.async {
+                            avatarView.sd_setImage(with: url, completed: nil)
+                        }
+                    case .failure(let error):
+                        print("\(error)")
+                    }
+                }
+            }
+            
+        } else {
+            //other user image
+            if let otherUserPhotoURL = self.otherUserPhotURL {
+                avatarView.sd_setImage(with: otherUserPhotoURL, completed: nil)
+            } else  {
+                // fetch url
+                let email = self.otherUserEmail
+                
+                let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
+                let path = "images/\(safeEmail)_profile_picture.png"
+                
+                
+                // fetch url
+                StorageManager.shared.downloadURL(for: path) {[weak self](result) in
+                    switch result {
+                    case .success(let url):
+                        self?.otherUserPhotURL = url
+                        DispatchQueue.main.async {
+                            avatarView.sd_setImage(with: url, completed: nil)
+                        }
+                    case .failure(let error):
+                        print("\(error)")
+                    }
+                }
+            }
+        }
+    }
     
 }
 
@@ -507,7 +575,7 @@ extension ChatViewController: MessageCellDelegate {
             let vc = LocationPickerViewController(coordinates: coordinates)
             vc.title = "Location"
             self.navigationController?.pushViewController(vc, animated: true)
-        
+            
             
         default:
             break
